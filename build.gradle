@@ -1,0 +1,19 @@
+group 'com.twh.serverForFaceRecognize'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'jetty'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
+    compile fileTree(dir: '/Users/rajur/javacpp', include: '*.jar')
+}
+
+jettyRun {
+    contextPath = ""
+    httpPort = 9090
+}
