@@ -14,11 +14,11 @@
 	<logger name="org.springframework" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
-	
+
 	<logger name="com.mkyong.helloworld" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
-	
+
 	<root level="debug">
 		<appender-ref ref="STDOUT" />
 	</root>
