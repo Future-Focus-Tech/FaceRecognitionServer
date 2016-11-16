@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
-    compile fileTree(dir: '/Users/rajur/javacpp', include: '*.jar')
+    compile fileTree(dir: "${System.properties['user.dir']}${File.separator}javacpp-presets", include: "*.jar")
 }
 
 jettyRun {
