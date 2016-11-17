@@ -1,8 +1,11 @@
 package com.mkyong.helloworld.web;
 
 import com.mkyong.helloworld.service.HelloWorldService;
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.javacpp.opencv_core.MatVector;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,13 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
+import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Map;
-import java.io.File;
 
 
 @Controller
@@ -51,20 +50,22 @@ public class WelcomeController {
 
 	}
 	@RequestMapping(value = "face", method = RequestMethod.POST)
-	public void faces(@RequestParam(value = "facesData[]") String[] facesData) throws IOException {
+	public ResponseEntity<MatVector>  faces(@RequestParam(value = "facesData[]") String[] facesData) throws IOException {
 		System.out.println(facesData.length);
 		String encodingPrefix = "base64,";
 		String dataUrl = facesData[1];
 		int contentStartIndex = dataUrl.indexOf(encodingPrefix) + encodingPrefix.length();
-		byte[] imageData = Base64.decode(dataUrl.substring(contentStartIndex));
+		byte[] imageData = DatatypeConverter.parseBase64Binary(dataUrl.substring(contentStartIndex));
 		System.out.println(imageData.length);
-//		Mat matImageData = imdecode(imageData);
+
+		Mat mat = new Mat();
+		mat.data().put(imageData);
 
 
-        InputStream inputStream = new ByteArrayInputStream(imageData);
-        BufferedImage bufferedImage = ImageIO.read(inputStream);
-        ImageIO.write(bufferedImage, "png", new File("raju.png"));
-//		return new ResponseEntity<MatVector>(HttpStatus.OK);
+//        InputStream inputStream = new ByteArrayInputStream(imageData);
+//        BufferedImage bufferedImage = ImageIO.read(inputStream);
+//        ImageIO.write(bufferedImage, "png", new File("image.png"));
+		return new ResponseEntity<MatVector>(HttpStatus.OK);
 	}
 
 }
