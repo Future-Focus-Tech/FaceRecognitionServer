@@ -6,5 +6,4 @@ build
 serverForFaceRecognize.*
 gradlew*
 classes
-javacpp-presets/
-
+out/

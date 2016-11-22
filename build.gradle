@@ -3,6 +3,7 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'jetty'
+apply plugin: 'idea'
 
 repositories {
     mavenCentral()
@@ -10,7 +11,13 @@ repositories {
 
 dependencies {
     compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
-    compile fileTree(dir: "${System.properties['user.dir']}${File.separator}javacpp-presets", include: "*.jar")
+    compile group: 'org.bytedeco', name: 'javacpp', version: '1.2'
+    compile group: 'org.bytedeco', name: 'javacv', version: '1.2'
+    compile group: "org.bytedeco.javacpp-presets", name: "opencv", version: "2.4.11-0.11", classifier: "macosx-x86_64"
+}
+
+configurations {
+    all*.exclude group: 'org.bytedeco', module: 'javacpp-presets'
 }
 
 jettyRun {
