@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.web;
+package org.twh.facerecognizer.web;
 
 import org.bytedeco.javacpp.opencv_face.FaceRecognizer;
 
